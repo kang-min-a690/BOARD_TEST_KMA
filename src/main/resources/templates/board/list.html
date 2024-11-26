@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 목록</title>
+</head>
+<body>
+    <h1>게시글 목록</h1>
+    
+    <div style="display: flex; justify-content: space-between; width: 600px;">
+        <a href="/board/insert">글쓰기</a>
+    </div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>등록일자</th>
+                <th>수정일자</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:if="${boardList.isEmpty()}">
+                <tr>
+                    <td colspan="5" align="center">조회된 데이터가 없습니다.</td>
+                </tr>
+            </th:block>
+
+            <th:block th:each="board : ${boardList}">
+                <tr>
+                    <td><span th:text="${board.no}"></span></td>
+                    <td>
+                        <a href="" th:href="|/board/select/${board.no}|"
+                                   th:text="${board.title}">
+                            제목
+                        </a>
+                    </td>
+                    <td><span th:text="${board.writer}"></span></td>
+                    <td align="center">
+                        <span th:text="${ #dates.format( board.createdAt, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+                    </td>
+                    <td align="center">
+                        <span th:text="${ #dates.format( board.updatedAt, 'yyyy-MM-dd HH:mm:ss' ) }"></span>
+                    </td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+
+</body>
+</html>
